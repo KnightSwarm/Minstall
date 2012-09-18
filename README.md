@@ -21,6 +21,7 @@ Compatibility
 --------
 
 Operating Systems:
+
  + Debian 6 (Squeeze) i686
  + Debian 6 (Squeeze) x86_64
  + Ubuntu 12.04 (Precise Pangolin) i686
@@ -40,28 +41,32 @@ Sample Commands
 ------
 
 ### Download
-cd ~; rm -rf minstall minstall.tar.gz; mkdir minstall; cd minstall; wget --no-check-certificate -O minstall.tar.gz http://www.github.com/downloads/KnightSwarm/Minstall/Latest.tar.gz; tar zxvf minstall.tgz
-cd ~; rm -rf minstall minstall.tar.gz
+
+    cd ~; rm -rf minstall minstall.tar.gz; mkdir minstall; cd minstall; wget --no-check-certificate -O minstall.tar.gz http://www.github.com/downloads/KnightSwarm/Minstall/Latest.tar.gz; tar zxvf minstall.tgz
+    cd ~; rm -rf minstall minstall.tar.gz
 
 ### Install
-bash minstall.sh install-extra-repositories
-bash minstall.sh clean-packages
-bash minstall.sh install-ssh
-bash minstall.sh install-extra-packages
+
+    bash minstall.sh install-extra-repositories
+    bash minstall.sh clean-packages
+    bash minstall.sh install-ssh
+    bash minstall.sh install-extra-packages
 
 ### Configuration
-bash minstall.sh configure-general
-bash minstall.sh configure-ssh
-bash minstall.sh configure-upgrade
-bash minstall.sh configure-user
+    
+    bash minstall.sh configure-general
+    bash minstall.sh configure-ssh
+    bash minstall.sh configure-upgrade
+    bash minstall.sh configure-user
 
 ### HTTP
-bash minstall.sh http-install-exim
-bash minstall.sh http-install-mysql
-bash minstall.sh http-install-nginx
-bash minstall.sh http-install-php
-bash minstall.sh http-install-php-extra
-bash minstall.sh http-configure-mysql
-bash minstall.sh http-configure-nginx
-bash minstall.sh manage-add-user
-bash minstall.sh manage-add-host
+
+    bash minstall.sh http-install-exim
+    bash minstall.sh http-install-mysql
+    bash minstall.sh http-install-nginx
+    bash minstall.sh http-install-php
+    bash minstall.sh http-install-php-extra
+    bash minstall.sh http-configure-mysql
+    bash minstall.sh http-configure-nginx
+    bash minstall.sh manage-add-user
+    bash minstall.sh manage-add-host
