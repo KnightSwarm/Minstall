@@ -10,6 +10,12 @@ if ! (question --default yes "Do you still want to run this module and purge all
 	continue
 fi
 
+# Stopping Sendmail daemon
+if check_package "sendmail"; then
+	subheader "Stopping Sendmail daemon..."
+	daemon_manage sendmail stop
+fi
+
 # Update Package Lists
 subheader "Updating Package Lists..."
 package_update
