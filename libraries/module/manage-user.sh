@@ -89,6 +89,7 @@ manage-user() {
 
 		subheader "Removing User HTTP..."
 		rm -rf /etc/nginx/php.d/$1.conf
+		rm -rf /etc/nginx/custom.d/$1-*.conf
 		rm -rf /etc/nginx/sites-*/$1-*.conf
 		rm -rf /etc/php5/fpm/pool.d/$1.conf
 	}
