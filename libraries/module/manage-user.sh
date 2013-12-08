@@ -59,7 +59,7 @@ manage-user() {
 			read -p "Please enter a user: " USER
 
 			# Check Input
-			if grep -q '^[-0-9a-zA-Z]*$' <<< $USER || [[ $USER == "default" || $USER == "system" || $USER == "www-data" ]]; then
+			if grep -q '^[-0-9a-zA-Z]*$' <<< $USER && [[ $USER != "default" || $USER != "system" || $USER != "www-data" ]]; then
 				# Exit Loop
 				break
 			else
