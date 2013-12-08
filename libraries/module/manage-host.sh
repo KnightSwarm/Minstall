@@ -1,9 +1,6 @@
 #!/bin/bash
 # Common Functions For Module: Manage Host
 
-# Manage User
-manage-user
-
 # Module Functions
 manage-host() {
 	#####################
