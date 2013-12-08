@@ -22,35 +22,35 @@ module() {
 	manage-host-check-host $USER $HOST
 
 	# Enable Host Question
-	if question --default yes "Do you want to enable this host? (Y/n)" || [ $ENABLE = 1 ]; then
+	if question --default yes "Do you want to enable this host? (Y/n)" || [[ $ENABLE = 1 ]]; then
 		manage-host-enable-host $USER $HOST
 	else
 		manage-host-disable-host $USER $HOST
 	fi
 
 	# Host Cache Question
-	if question --default yes "Do you want to enable caching for static resources? (Y/n)" || [ $CACHE = 1 ]; then
+	if question --default yes "Do you want to enable caching for static resources? (Y/n)" || [[ $CACHE = 1 ]]; then
 		manage-host-enable-cache $USER $HOST
 	else
 		manage-host-disable-cache $USER $HOST
 	fi
 
 	# Host Hidden File Deny Question
-	if question --default yes "Do you want to deny all access to hidden files? (Y/n)" || [ $DENY = 1 ]; then
+	if question --default yes "Do you want to deny all access to hidden files? (Y/n)" || [[ $DENY = 1 ]]; then
 		manage-host-enable-deny $USER $HOST
 	else
 		manage-host-disable-deny $USER $HOST
 	fi
 
 	# Host PHP Question
-	if question --default yes "Do you want to enable PHP for this host? (Y/n)" || [ $PHP = 1 ]; then
+	if question --default yes "Do you want to enable PHP for this host? (Y/n)" || [[ $PHP = 1 ]]; then
 		manage-host-enable-php $USER $HOST
 	else
 		manage-host-disable-php $USER $HOST
 	fi
 
 	# Host SSL Question
-	if question --default yes "Do you want to enable SSL for this host? (Y/n)" || [ $SSL = 1 ]; then
+	if question --default yes "Do you want to enable SSL for this host? (Y/n)" || [[ $SSL = 1 ]]; then
 		manage-host-enable-ssl $USER $HOST
 	else
 		manage-host-disable-ssl $USER $HOST
@@ -62,7 +62,7 @@ module() {
 }
 
 # Attended Mode
-if [ $UNATTENDED = 0 ]; then
+if [[ $UNATTENDED = 0 ]]; then
 	# User Check
 	manage-user-input-check
 	

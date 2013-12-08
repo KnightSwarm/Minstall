@@ -27,23 +27,23 @@ module() {
 	# Check Package
 	if check_package "nginx"; then
 		# User HTTP Directory Question
-		if question --default yes "Do you want to add a HTTP directory for this user? (Y/n)" || [ $HTTP = 1 ]; then
+		if question --default yes "Do you want to add a HTTP directory for this user? (Y/n)" || [[ $HTTP = 1 ]]; then
 			manage-user-http-directory $USER
 		fi
 	fi
 
 	# User Set Permissions Question
-	if question --default yes "Do you want to set permissions for this user to enable enhanced privacy? (Y/n)" || [ $PERM = 1 ]; then
+	if question --default yes "Do you want to set permissions for this user to enable enhanced privacy? (Y/n)" || [[ $PERM = 1 ]]; then
 		manage-user-set-permissions $USER
 	fi
 
 	# User Add to SSH Question
-	if question --default yes "Do you want to allow this user access to SSH? (Y/n)" || [ $SSH = 1 ]; then
+	if question --default yes "Do you want to allow this user access to SSH? (Y/n)" || [[ $SSH = 1 ]]; then
 		manage-user-add-group $USER "ssh"
 	else
 		manage-user-remove-group $USER "ssh"
 		
-		if question --default yes "Do you want to allow this user access to SFTP? (Y/n)" || [ $SFTP = 1 ]; then
+		if question --default yes "Do you want to allow this user access to SFTP? (Y/n)" || [[ $SFTP = 1 ]]; then
 			manage-user-add-group $USER "sftp"
 		else
 			manage-user-remove-group $USER "sftp"
@@ -51,7 +51,7 @@ module() {
 	fi
 
 	# User PHP Question
-	if question --default yes "Do you want to allow this user to use PHP? (Y/n)" || [ $PHP = 1 ]; then
+	if question --default yes "Do you want to allow this user to use PHP? (Y/n)" || [[ $PHP = 1 ]]; then
 		manage-user-enable-php $USER
 	else
 		manage-user-disable-php $USER
@@ -59,7 +59,7 @@ module() {
 }
 
 # Attended Mode
-if [ $UNATTENDED = 0 ]; then
+if [[ $UNATTENDED = 0 ]]; then
 	# User Input
 	manage-user-input-user
 

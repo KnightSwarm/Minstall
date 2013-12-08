@@ -36,10 +36,10 @@ chown -R www-data:www-data /etc/nginx/ssl.d
 chmod -R o= /etc/nginx/ssl.d
 
 # Set Distribution Specific Variables
-if [ $DISTRIBUTION = "debian" ]; then
+if [[ $DISTRIBUTION = "debian" ]]; then
 	string_replace_file /etc/nginx/sites-available/default.conf "root path" "root /usr/share/nginx/html"
 	string_replace_file /etc/nginx/sites-available/system.conf "root path" "root /usr/share/nginx/html"
-elif [ $DISTRIBUTION = "ubuntu" ]; then
+elif [[ $DISTRIBUTION = "ubuntu" ]]; then
 	string_replace_file /etc/nginx/sites-available/default.conf "root path" "root /usr/share/nginx/www"
 	string_replace_file /etc/nginx/sites-available/system.conf "root path" "root /usr/share/nginx/www"
 fi

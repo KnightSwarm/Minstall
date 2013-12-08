@@ -20,7 +20,7 @@ module() {
 }
 
 # Attended Mode
-if [ $UNATTENDED = 0 ]; then
+if [[ $UNATTENDED = 0 ]]; then
 	# User Check
 	manage-user-input-check
 	

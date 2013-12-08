@@ -19,7 +19,7 @@ fi
 
 # Set Password
 subheader "Setting Password..."
-if [ $UNATTENDED = 1 ]; then
+if [[ $UNATTENDED = 1 ]]; then
 	# Stop Daemon
 	daemon_manage mysql stop
 

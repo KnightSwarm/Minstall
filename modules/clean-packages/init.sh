@@ -3,7 +3,7 @@
 
 # Module Warning
 warning "This module will remove all non-essential packages on this system, you have been warned!"
-if ! (question --default yes "Do you still want to run this module and purge all non-essential packages? (Y/n)" || [ $UNATTENDED = 1 ]); then
+if ! (question --default yes "Do you still want to run this module and purge all non-essential packages? (Y/n)" || [[ $UNATTENDED = 1 ]]); then
 	# Skipped Message
 	subheader "Skipping Module..."
 
@@ -20,13 +20,13 @@ subheader "Creating Package List..."
 cp $MODULEPATH/$MODULE/$DISTRIBUTION-$VERSION/base-$ARCHITECTURE temp.list
 
 # Check Platform
-if [ $PLATFORM = "hardware" ]; then
+if [[ $PLATFORM = "hardware" ]]; then
 	# Append Hardware Package List
 	cat $MODULEPATH/$MODULE/$DISTRIBUTION-$VERSION/base-hardware-$ARCHITECTURE >> temp.list
 fi
 
 # Check Platform Package List
-if [ -f $MODULEPATH/$MODULE/$DISTRIBUTION-$VERSION/specific-$PLATFORM-$ARCHITECTURE ]; then
+if [[ -f $MODULEPATH/$MODULE/$DISTRIBUTION-$VERSION/specific-$PLATFORM-$ARCHITECTURE ]]; then
 	# Append Platform Package List
 	cat $MODULEPATH/$MODULE/$DISTRIBUTION-$VERSION/specific-$PLATFORM-$ARCHITECTURE >> temp.list
 fi
