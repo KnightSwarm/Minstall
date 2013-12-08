@@ -59,7 +59,7 @@ manage-user() {
 			read -p "Please enter a user: " USER
 
 			# Check Input
-			if grep -q '^[-0-9a-zA-Z]*$' <<< $1 || [[ $1 == "default" || $1 == "system" || $1 == "www-data" ]]; then
+			if grep -q '^[-0-9a-zA-Z]*$' <<< $USER || [[ $USER == "default" || $USER == "system" || $USER == "www-data" ]]; then
 				# Exit Loop
 				break
 			else
@@ -86,9 +86,6 @@ manage-user() {
 
 		subheader "Removing User Home..."
 		rm -rf /home/$1
-
-		subheader "Removing User Database..."
-		#PLACEHOLDER#
 
 		subheader "Removing User HTTP..."
 		rm -rf /etc/nginx/php.d/$1.conf
@@ -127,6 +124,17 @@ manage-user() {
 		subheader "Removing User from Group..."
 		deluser $1 $2
 	}
+	
+	# Enable PHP for User
+	manage-user-enable-php() {
+		cp $MODULEPATH/manage-user-add/etc/php5/fpm/pool.d/template.conf /etc/php5/fpm/pool.d/$1.conf
+		string_replace_file /etc/php5/fpm/pool.d/$1.conf "\$USER" "$1"
+	}
+	
+	# Disable PHP for User
+	manage-user-disable-php() {
+		rm /etc/php5/fpm/pool.d/$1.conf
+	}
 
 	####################
 	## Misc Functions ##
@@ -143,7 +151,7 @@ manage-user() {
 	# HTTP Directory
 	manage-user-http-directory() {
 		subheader "Creating HTTP Directory..."
-		mkdir -p /home/$1/http/{common,host,logs,secure}
+		mkdir -p /home/$1/http/{common,hosts,logs,secure}
 
 		subheader "Changing HTTP Directory Permissions..."
 		chown -R $1:$1 /home/$USER/http
@@ -151,5 +159,9 @@ manage-user() {
 
 		subheader "Adding User To WWW Group..."
 		gpasswd -a www-data $1
+		
+		subheader "Adding PHP Configuration..."
+		cp $MODULEPATH/manage-user-add/etc/nginx/php.d/template.conf /etc/nginx/php.d/$1.conf
+		string_replace_file /etc/nginx/php.d/$1.conf "\$USER" "$1"
 	}
 }
