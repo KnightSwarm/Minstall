@@ -16,7 +16,7 @@ module() {
 	manage-user-check-user $USER
 
 	# Add Host
-	manage-host-add-host $USER $HOST
+	manage-host-manage-add $USER $HOST
 
 	# Check Host
 	manage-host-check-host $USER $HOST
