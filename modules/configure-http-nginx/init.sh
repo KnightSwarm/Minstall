@@ -17,11 +17,11 @@ fi
 # Enable Virtual Host For Hostname
 if question --default yes "Do you want to enable a virtual host that accepts all requests for the servers hostname (can be useful for scripts such as bandwidth monitors)? (Y/n)" || [ $(read_variable_module hostname_virtual_host) = 1 ]; then
 	subheader "Enabling Virtual Host For Hostname..."
-	mv /etc/nginx/sites-available/system.conf.disabled /etc/nginx/sites-available/system.conf
+	ln -s /etc/nginx/sites-available/system.conf /etc/nginx/sites-enabled/system.conf
 # Disable Virtual Host For Hostname
 else
 	subheader "Disabling Virtual Host For Hostname..."
-	mv /etc/nginx/sites-available/system.conf /etc/nginx/sites-available/system.conf.disabled
+	rm /etc/nginx/sites-enabled/system.conf
 fi
 
 # Enable Proxy Cache
@@ -57,6 +57,15 @@ else
 	if question --default no "Do you want to reset the default host to the script default (this will override your default virtual host if you have assigned one)? (y/N)" || [ $(read_variable_module default_host_reset) = 1 ]; then
 		subheader "Resetting Default Host..."
 		cp $MODULEPATH/install-http-nginx/etc/nginx/sites-available/default.conf /etc/nginx/sites-available/
+
+		# Set Distribution Specific Variables
+		if [ $DISTRIBUTION = "debian" ]; then
+			string_replace_file /etc/nginx/sites-available/default.conf "root path" "root /usr/share/nginx/html"
+			string_replace_file /etc/nginx/sites-available/system.conf "root path" "root /usr/share/nginx/html"
+		elif [ $DISTRIBUTION = "ubuntu" ]; then
+			string_replace_file /etc/nginx/sites-available/default.conf "root path" "root /usr/share/nginx/www"
+			string_replace_file /etc/nginx/sites-available/system.conf "root path" "root /usr/share/nginx/www"
+		fi
 	fi
 fi
 
