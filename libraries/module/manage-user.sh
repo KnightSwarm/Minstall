@@ -127,13 +127,21 @@ manage-user() {
 	
 	# Enable PHP for User
 	manage-user-enable-php() {
+		subheader "Enabling PHP for User..."
 		cp $MODULEPATH/manage-user-add/etc/php5/fpm/pool.d/template.conf /etc/php5/fpm/pool.d/$1.conf
 		string_replace_file /etc/php5/fpm/pool.d/$1.conf "\$USER" "$1"
+
+		subheader "Restarting Daemon..."
+		daemon_manage php5-fpm restart
 	}
 	
 	# Disable PHP for User
 	manage-user-disable-php() {
+		subheader "Disabling PHP for User..."
 		rm /etc/php5/fpm/pool.d/$1.conf
+
+		subheader "Restarting Daemon..."
+		daemon_manage php5-fpm restart
 	}
 
 	####################
