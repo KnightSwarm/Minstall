@@ -49,6 +49,13 @@ module() {
 			manage-user-remove-group $USER "sftp"
 		fi
 	fi
+
+	# User PHP Question
+	if question --default yes "Do you want to allow this user to use PHP? (Y/n)" || [ $PHP = 1 ]; then
+		manage-user-enable-php $USER
+	else
+		manage-user-disable-php $USER
+	fi
 }
 
 # Attended Mode
@@ -67,6 +74,7 @@ else
 	PERMLIST=$(read_variable_module perm),
 	SSHLIST=$(read_variable_module ssh),
 	SFTPLIST=$(read_variable_module sftp),
+	PHPLIST=$(read_variable_module php),
 
 	# Loop Through Users
 	while echo $USERLIST | grep -q \,; do
@@ -77,6 +85,7 @@ else
 		PERM=${PERMLIST%%\,*}
 		SSH=${SSHLIST%%\,*}
 		SFTP=${SFTPLIST%%\,*}
+		PHP=${PHPLIST%%\,*}
 
 		# Remove Current From List
 		USERLIST=${USERLIST#*\,}
@@ -85,6 +94,7 @@ else
 		PERMLIST=${PERMLIST#*\,}
 		SSHLIST=${SSHLIST#*\,}
 		SFTPLIST=${SFTPLIST#*\,}
+		PHPLIST=${PHPLIST#*\,}
 
 		# Check User Array State
 		manage-user-check-array $USERLIST
@@ -100,6 +110,7 @@ else
 	unset PERMLIST
 	unset SSHLIST
 	unset SFTPLIST
+	unset PHPLIST
 
 	# Unset Variables
 	unset USER
@@ -108,6 +119,7 @@ else
 	unset PERM
 	unset SSH
 	unset SFTP
+	unset PHP
 fi
 
 # Unset Init
