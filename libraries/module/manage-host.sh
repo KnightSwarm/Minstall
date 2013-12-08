@@ -69,8 +69,8 @@ manage-host() {
 			# Take Input
 			read -p "Please enter a host: " HOST
 
-			if grep -q '^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$' <<< $HOST; then
 			# Check Input
+			if egrep -q '^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$' <<< $HOST; then
 				# Exit Loop
 				break
 			else
