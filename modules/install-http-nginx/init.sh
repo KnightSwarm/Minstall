@@ -45,6 +45,7 @@ elif [ $DISTRIBUTION = "ubuntu" ]; then
 fi
 
 # Enable Default Hosts
+subheader "Enabling Default Hosts..."
 ln -s /etc/nginx/sites-available/default.conf /etc/nginx/sites-enabled/default.conf
 ln -s /etc/nginx/sites-available/system.conf /etc/nginx/sites-enabled/system.conf
 
