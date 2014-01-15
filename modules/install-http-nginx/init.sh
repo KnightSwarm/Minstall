@@ -2,7 +2,7 @@
 # Install (HTTP): Nginx
 
 # Distribution Checks
-check_repository_message "debian" "dotdeb" "DotDeb"
+check_repository_message "debian" "nginx"
 check_repository_message "ubuntu" "nginx"
 
 # Package List Update Question
@@ -21,6 +21,7 @@ package_install nginx
 # Copy Configuration
 subheader "Copying Configuration..."
 cp -rf $MODULEPATH/$MODULE/etc/* /etc/
+mkdir /etc/nginx/sites-enabled/
 
 # Create Caching Directory
 subheader "Creating Caching Directory..."
@@ -35,13 +36,18 @@ chown -R www-data:www-data /etc/nginx/ssl.d
 chmod -R o= /etc/nginx/ssl.d
 
 # Set Distribution Specific Variables
-if [ $DISTRIBUTION = "debian" ]; then
+if [[ $DISTRIBUTION = "debian" ]]; then
 	string_replace_file /etc/nginx/sites-available/default.conf "root path" "root /usr/share/nginx/html"
 	string_replace_file /etc/nginx/sites-available/system.conf "root path" "root /usr/share/nginx/html"
-elif [ $DISTRIBUTION = "ubuntu" ]; then
+elif [[ $DISTRIBUTION = "ubuntu" ]]; then
 	string_replace_file /etc/nginx/sites-available/default.conf "root path" "root /usr/share/nginx/www"
 	string_replace_file /etc/nginx/sites-available/system.conf "root path" "root /usr/share/nginx/www"
 fi
+
+# Enable Default Hosts
+subheader "Enabling Default Hosts..."
+ln -s /etc/nginx/sites-available/default.conf /etc/nginx/sites-enabled/default.conf
+ln -s /etc/nginx/sites-available/system.conf /etc/nginx/sites-enabled/system.conf
 
 # Common Clean
 common-clean

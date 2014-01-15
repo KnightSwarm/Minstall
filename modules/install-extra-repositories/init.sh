@@ -5,7 +5,7 @@
 subheader "Installing Extra Repositories..."
 
 # Attended Mode
-if [ $UNATTENDED = 0 ]; then
+if [[ $UNATTENDED = 0 ]]; then
 	# Loop Through Available Repositories
 	for file in $MODULEPATH/$MODULE/$DISTRIBUTION-$VERSION/*.sh; do
 		# Source Scripts
